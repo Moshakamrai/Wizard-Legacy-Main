@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961e34bf52d717a4ca8ccf51c3284a82, type: 3}
+  m_Name: ObjectPickingActions
+  m_EditorClassIdentifier: 
+  triggerActionElements:
+  - enabled: 1
+    spawnAsEntity: 0
+    startDelay: 0
+    duration: 10
+    prefab: {fileID: 4490824798590118549, guid: 6854fc656f7172e4b8952c41ea8ac559,
+      type: 3}
+    spawnAtSource: 0
+    spawnAtTarget: 1
+    unParent: 0
+    entityFilter: {fileID: 0}
+    gameObjectTag: MainCamera
+    entityQueryFilterNameSpace: 
+    entityQueryFilterName: 
+    targetingInstruction:
+      geometryType: 2
+      isTargetingEnabled: 0
+      targetTag: Respawn
+      entityQueryFilter: {fileID: 0}
+      entityQueryFilterName: 
+      entityQueryFilterNameSpace: 
+      targetingActions: {fileID: 11400000}
+  - enabled: 1
+    spawnAsEntity: 0
+    startDelay: 0
+    duration: 5
+    prefab: {fileID: 6254577495183571575, guid: 85b4b013f05b6df4d95e8c3a899108d7,
+      type: 3}
+    spawnAtSource: 0
+    spawnAtTarget: 1
+    unParent: 0
+    entityFilter: {fileID: 0}
+    gameObjectTag: Untagged
+    entityQueryFilterNameSpace: 
+    entityQueryFilterName: 
+    targetingInstruction:
+      geometryType: 2
+      isTargetingEnabled: 0
+      targetTag: Respawn
+      entityQueryFilter: {fileID: 0}
+      entityQueryFilterName: 
+      entityQueryFilterNameSpace: 
+      targetingActions: {fileID: 11400000}

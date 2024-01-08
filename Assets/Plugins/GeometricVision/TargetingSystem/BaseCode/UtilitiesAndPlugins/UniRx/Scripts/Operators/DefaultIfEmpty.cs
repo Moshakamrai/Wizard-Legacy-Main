@@ -1,0 +1,62 @@
+﻿using System;
+using Plugins.GeometricVision.TargetingSystem.Code.UtilitiesAndPlugins.UniRx.Scripts.System;
+
+namespace Plugins.GeometricVision.TargetingSystem.Code.UtilitiesAndPlugins.UniRx.Scripts.Operators
+{
+    internal class DefaultIfEmptyObservable<T> : OperatorObservableBase<T>
+    {
+        readonly IObservable<T> source;
+        readonly T defaultValue;
+
+        public DefaultIfEmptyObservable(IObservable<T> source, T defaultValue)
+            : base(source.IsRequiredSubscribeOnCurrentThread())
+        {
+            this.source = source;
+            this.defaultValue = defaultValue;
+        }
+
+        protected override IDisposable SubscribeCore(IObserver<T> observer, IDisposable cancel)
+        {
+            return this.source.Subscribe(new DefaultIfEmpty(this, observer, cancel));
+        }
+
+        class DefaultIfEmpty : OperatorObserverBase<T, T>
+        {
+            readonly DefaultIfEmptyObservable<T> parent;
+            bool hasValue;
+
+            public DefaultIfEmpty(DefaultIfEmptyObservable<T> parent, IObserver<T> observer, IDisposable cancel) : base(observer, cancel)
+            {
+                this.parent = parent;
+                this.hasValue = false;
+            }
+
+            public override void OnNext(T value)
+            {
+                this.hasValue = true;
+                this.observer.OnNext(value);
+            }
+
+            public override void OnError(Exception error)
+            {
+                try {
+                    this.observer.OnError(error); }
+                finally {
+                    this.Dispose(); }
+            }
+
+            public override void OnCompleted()
+            {
+                if (!this.hasValue)
+                {
+                    this.observer.OnNext(this.parent.defaultValue);
+                }
+
+                try {
+                    this.observer.OnCompleted(); }
+                finally {
+                    this.Dispose(); }
+            }
+        }
+    }
+}

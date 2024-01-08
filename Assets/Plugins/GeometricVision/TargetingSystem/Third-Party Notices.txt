@@ -1,0 +1,9 @@
+UniRX ReactiveExtensions.
+/UtilitiesAndPlugins/
+MIT
+
+Unity script component RotationSpeed_Authoring from Unity ecs samples repo on the examples projects.
+Also some of the spawning scripts related to spawning started from the examples repo, but are barely recognizable anymore
+Also Files under folder TargetingSystem\Code\Entities\Components\FromUnity
+MIT
+
