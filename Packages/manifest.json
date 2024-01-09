@@ -3,6 +3,7 @@
     "com.unity.burst": "1.8.8",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.collections": "1.2.4",
+    "com.unity.device-simulator.devices": "1.0.0",
     "com.unity.editorcoroutines": "1.0.0",
     "com.unity.feature.cinematic": "1.0.0",
     "com.unity.feature.development": "1.0.1",

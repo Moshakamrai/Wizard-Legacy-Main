@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D087C8FC-B245-5221-35D9-613C05D4FBB4}</ProjectGuid>
+    <ProjectGuid>{F8B6632E-7580-772F-C2EE-FBD5C5794CBE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,7 +53,7 @@
     <UnityVersion>2022.3.8f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -921,19 +921,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{2E342097-7DAD-2C92-2D4C-7F24322E770D}</Project>
+      <Project>{3BB1B254-B4A4-3783-E3E8-CCAFF646C195}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
     <ProjectReference Include="UIEditorDrawers.csproj">
-      <Project>{6DF5DDD6-E527-F59F-C4DC-A2D9BE4A87C4}</Project>
+      <Project>{3D5BA068-115C-D6F7-20B9-485AADC3CC67}</Project>
       <Name>UIEditorDrawers</Name>
     </ProjectReference>
     <ProjectReference Include="UniRx.csproj">
-      <Project>{8D37DA75-0C5C-DFAD-6DF9-2960EBC906BD}</Project>
+      <Project>{C003C479-A67F-4986-0824-2EF93FB83608}</Project>
       <Name>UniRx</Name>
     </ProjectReference>
     <ProjectReference Include="TargetingSystem.csproj">
-      <Project>{550FCF7E-5BC7-1686-A30D-5CDDB340F765}</Project>
+      <Project>{1BE2DC1A-4C49-6636-CDA4-89F72848EFA9}</Project>
       <Name>TargetingSystem</Name>
     </ProjectReference>
   </ItemGroup>
