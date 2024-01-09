@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Spell", menuName = "Spells/SpellData")]
 public class SpellData : ScriptableObject
 {
@@ -8,4 +8,5 @@ public class SpellData : ScriptableObject
     public int spellSpeed;
     public string spellName;
     public bool spellUnlocked;
+    public RawImage spellImage;
 }

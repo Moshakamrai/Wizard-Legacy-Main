@@ -8,9 +8,15 @@ public class ParticleCollisionDetector : MonoBehaviour
     void OnParticleCollision(GameObject other)
     {
         Debug.Log("It's colliding!");
-        
+        if (gameObject.GetComponent<Outline>())
+        {
+            Debug.Log("Should be diabled");
+            gameObject.GetComponent<Outline>().enabled = false;
+        }
         ParticleManager.Instance.PlayParticle("FirstProjectileExplosion", other.transform.position, transform.rotation, gameObject.transform);
         other.gameObject.SetActive(false);
     }
+
+ 
     
 }

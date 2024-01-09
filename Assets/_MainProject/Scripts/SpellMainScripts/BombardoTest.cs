@@ -8,6 +8,8 @@ public class BombardoTest : MonoBehaviour
     [SerializeField] Transform[] bombSpawnPoints;
     [SerializeField] GameObject castPointPrefab;
 
+    [SerializeField] int storedIndex;
+
     public bool spellCasted;
 
     void Update()
@@ -16,19 +18,25 @@ public class BombardoTest : MonoBehaviour
         {
             spellCasted = true;
             BombardoCastSpell();
-            GameManager.Instance.outlinedObjectCount = 0;
+            //GameManager.Instance.outlinedObjectCount = 0;
         }
+    }
+    private void Start()
+    {
+        storedIndex = 0;
     }
 
     public void BombardoCastSpell()
     {
-        for (int i = 0; i < GameManager.Instance.outlinedObjects.Count; i++)
+        GameManager.Instance.outlinedObjectCount = 0;
+        for (int i = storedIndex; i < GameManager.Instance.outlinedObjects.Count; i++)
         {
             
             Transform bombSpawnPoint = GameManager.Instance.outlinedObjects[i];
             Transform castPoint = Instantiate(castPointPrefab, bombSpawnPoint.position + new Vector3(0, 9f, -9f), Quaternion.identity).transform;
 
             FlyTowards(bombSpawnPoint, castPoint);
+            storedIndex = i +1;
         }
         bombSpawnPoints = GameManager.Instance.outlinedObjects.ToArray();
     }
@@ -47,8 +55,7 @@ public class BombardoTest : MonoBehaviour
             {
                 Debug.Log("Reached the target!");
                 ParticleManager.Instance.PlayParticle("BombardoProjectileExplosion", castPoint.position, transform.rotation, castPoint);
-                spellCasted = true;
-                //FocusOnObjects();
+                spellCasted = false;
             });
     }
     

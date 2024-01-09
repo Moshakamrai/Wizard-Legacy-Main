@@ -21,6 +21,8 @@ public class LevitateObjectTest : MonoBehaviour
     private Transform castPoint;
     [SerializeField]
     private GameObject castObject;
+    [SerializeField]
+    private Transform castPointLevitate;
 
     // Public property to access the instance
     public static LevitateObjectTest Instance
@@ -126,7 +128,7 @@ public class LevitateObjectTest : MonoBehaviour
 
     public void StartLevitate(int i)
     {
-        objectMoveAble[i].gameObject.GetComponent<LevitateScript>().LevitateUpwards();
+        objectMoveAble[i].gameObject.GetComponent<LevitateScript>().LevitateUpwards(castPointLevitate.gameObject);
     }
 
     public void CastSpellInitiate(GameObject target)

@@ -36,7 +36,7 @@ public class LevitateScript : MonoBehaviour
         
     }
 
-    public void LevitateUpwards()
+    public void LevitateUpwards(GameObject target)
     {
         // Levitate upwards
         transform.DOMoveY(levitationHeight, levitationDuration).SetEase(Ease.InOutQuad);
@@ -45,6 +45,16 @@ public class LevitateScript : MonoBehaviour
         transform.DORotate(new Vector3(0f, rotationAmount, 0f), rotationDuration, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Incremental)
             .SetEase(Ease.Linear);
+
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        float flyDuration = distance / 20;
+        transform.DOMove(target.transform.position, flyDuration)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                Debug.Log("Reached the target!");
+                transform.parent = target.transform;
+            });
         ParticleManager.Instance.PlayParticle("LevitateAura", gameObject.transform.position, transform.rotation, auraGameObject.transform);
     }
 

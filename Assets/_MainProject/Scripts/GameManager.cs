@@ -99,13 +99,11 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(slowdownDuration);
         slowEffect = false;
-        Debug.Log("should go back");
+
         if (!bombarbuTest.spellCasted)
         {
-            Debug.Log("bombardu");
             bombarbuTest.BombardoCastSpell();
         }
-        // Enable camera movement slowdown
         if (cameraScript != null)
         {
             cameraScript.ResetCameraSpeedMultiplier();
@@ -143,7 +141,7 @@ public class GameManager : MonoBehaviour
 
             // Interpolate player rotation
             //mainPlayer.rotation = Quaternion.Slerp(initialPlayerRotation, Quaternion.LookRotation(centerPoint - mainPlayer.position), elapsedTime / focusDuration);
-            mainPlayer.LookAt(centerPoint);
+            //mainPlayer.LookAt(centerPoint);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
