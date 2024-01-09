@@ -100,6 +100,7 @@
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\WalkToExit.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
     <Compile Include="Assets\_MainProject\Scripts\ParticleManager.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\UIManager.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\RessurectionNecro.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SpellData.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vExtensions.cs" />

@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject mainPlayer;
 
+    [SerializeField]
+    private BombardoTest bombarbuTest;
+
     #region Vars
     public float slowdownFactor; // Adjust the slowdown factor
     public float slowdownDuration; // Adjust the duration of the slowdown
@@ -87,14 +90,21 @@ public class GameManager : MonoBehaviour
             cameraScript.SetCameraSpeedMultiplier(cameraSpeedMultiplier);
         }
 
-        while (slowEffect)
-        {
-            yield return null;
-            //yield return new WaitForSeconds(slowdownDuration);
-            //slowEffect = false;
-        }
-       
+        //while (slowEffect)
+        //{
+            
+        //    //yield return new WaitForSeconds(slowdownDuration);
+        //    //slowEffect = false;
+        //}
 
+        yield return new WaitForSeconds(slowdownDuration);
+        slowEffect = false;
+        Debug.Log("should go back");
+        if (!bombarbuTest.spellCasted)
+        {
+            Debug.Log("bombardu");
+            bombarbuTest.BombardoCastSpell();
+        }
         // Enable camera movement slowdown
         if (cameraScript != null)
         {
@@ -102,6 +112,7 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = originalTimeScale;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
     }
 
     public void FocusOnObjects(GameObject cam,  float rotationSpeed, float focusDuration)

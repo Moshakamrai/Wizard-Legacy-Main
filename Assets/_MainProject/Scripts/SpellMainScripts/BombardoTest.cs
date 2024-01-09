@@ -8,10 +8,13 @@ public class BombardoTest : MonoBehaviour
     [SerializeField] Transform[] bombSpawnPoints;
     [SerializeField] GameObject castPointPrefab;
 
+    public bool spellCasted;
+
     void Update()
     {
-        if (GameManager.Instance.outlinedObjectCount == 4)
+        if (GameManager.Instance.outlinedObjectCount == 4 )
         {
+            spellCasted = true;
             BombardoCastSpell();
             GameManager.Instance.outlinedObjectCount = 0;
         }
@@ -44,6 +47,7 @@ public class BombardoTest : MonoBehaviour
             {
                 Debug.Log("Reached the target!");
                 ParticleManager.Instance.PlayParticle("BombardoProjectileExplosion", castPoint.position, transform.rotation, castPoint);
+                spellCasted = true;
                 //FocusOnObjects();
             });
     }
