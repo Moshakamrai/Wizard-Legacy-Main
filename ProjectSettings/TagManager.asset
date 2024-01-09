@@ -8,11 +8,14 @@ TagManager:
   - CinemachineTarget
   - Missile
   - CollideObject
+  - Target
+  - StaticObjects
+  - ParticleObject
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Colliders
   - Water
   - UI
   - 

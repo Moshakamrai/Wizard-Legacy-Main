@@ -934,6 +934,10 @@
       <Project>{D087C8FC-B245-5221-35D9-613C05D4FBB4}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
+      <Project>{614F29D7-48E5-ADC6-B470-055330A3E0FF}</Project>
+      <Name>Assembly-CSharp-Editor-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="UIEditorDrawers.csproj">
       <Project>{6DF5DDD6-E527-F59F-C4DC-A2D9BE4A87C4}</Project>
       <Name>UIEditorDrawers</Name>

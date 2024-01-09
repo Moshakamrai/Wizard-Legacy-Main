@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 199001697893915736}
   m_Layer: 0
   m_Name: ShieldSoftYellow
-  m_TagString: Untagged
+  m_TagString: ParticleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

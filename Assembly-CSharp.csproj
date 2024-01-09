@@ -61,7 +61,9 @@
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\AttackSK.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\GameManager.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\GetHurtSK.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\ParticleCollisionDetector.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\StateMachineNPC.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\3D Models\Others\HealthItem\vAnimateUV.cs" />
     <Compile Include="Assets\Epic Toon FX\Scripts\ETFXRotation.cs" />
@@ -69,32 +71,37 @@
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonInput.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\GetHurtNecro.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\WalkToBuy.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\ShooterScripts\CastSpellScript.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\SkeletonStates.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\GunAim.cs" />
     <Compile Include="Assets\GUI PRO Kit - Casual Game\Scripts\PanelControlCasualGame.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\NecroStates.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\VFX Library\ParticleEffectsLibrary.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\LevitateScript.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXSceneManager.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\SkeletonStateMachine.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\GunShoot.cs" />
     <Compile Include="Assets\_MainProject\Scripts\ShooterScripts\ThirdPersonShooterController.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vPickupItem.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\BombardoTest.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXMouseOrbit.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\BombardaNecro.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\VFX Library\PEButtonScript.cs" />
     <Compile Include="Assets\Epic Toon FX\Scripts\ETFXLightFade.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SectumSperaTest.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\WalkTowardsNecro.cs" />
     <Compile Include="Assets\Epic Toon FX\Scripts\ETFXPitchRandomizer.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vComment.cs" />
-    <Compile Include="Assets\_MainProject\Scripts\LeviateObjectTest.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\MainStateNPC.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\LeviateObjectTest.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXTarget.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\WalkToExit.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
     <Compile Include="Assets\_MainProject\Scripts\ParticleManager.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\RessurectionNecro.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SpellData.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vExtensions.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\WalkTowardSK.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXLoopScript.cs" />
@@ -102,9 +109,9 @@
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Camera\vThirdPersonCamera.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SpellManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonAnimator.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonController.cs" />
-    <Compile Include="Assets\_MainProject\Scripts\LevitateScript.cs" />
     <Compile Include="Assets\_MainProject\Scripts\OutlineSelection.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXButtonScript.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\NecroStateMachine.cs" />
@@ -112,6 +119,7 @@
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
     <Compile Include="Assets\GUI PRO Kit - Casual Game\Scripts\PanelCasualGame.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\BuyFruits.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SlowMotionController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Epic Toon FX\Prefabs\Environment\Environment FX.txt" />

@@ -22,6 +22,9 @@ public class vThirdPersonCamera : MonoBehaviour
     public float yMinLimit = -40f;
     public float yMaxLimit = 80f;
 
+    private float originalXMouseSensitivity;
+    private float originalYMouseSensitivity;
+
     #endregion
 
     #region hide properties    
@@ -61,6 +64,33 @@ public class vThirdPersonCamera : MonoBehaviour
     void Start()
     {
         Init();
+
+        // Initialize original sensitivity values
+        originalXMouseSensitivity = xMouseSensitivity;
+        originalYMouseSensitivity = yMouseSensitivity;
+    }
+
+    public void SetCameraSpeedMultiplier(float multiplier)
+    {
+        // Adjust camera speed based on the multiplier
+        xMouseSensitivity *= multiplier;
+        yMouseSensitivity *= (multiplier - 1f);
+
+        Debug.Log("set Speed fast for cam");
+        // You might want to add clamping or other logic based on your requirements
+        // For example, ensure xMouseSensitivity and yMouseSensitivity don't go below a certain value
+        xMouseSensitivity = Mathf.Max(xMouseSensitivity, 1.0f);
+        yMouseSensitivity = Mathf.Max(yMouseSensitivity, 1.0f);
+    }
+
+    public void ResetCameraSpeedMultiplier()
+    {
+        // Reset camera speed to its original values
+        xMouseSensitivity = originalXMouseSensitivity;
+        yMouseSensitivity = originalYMouseSensitivity;
+        Debug.Log("set Speed normal for cam");
+        GameManager.Instance.FocusOnObjects(gameObject, 1f, 1.5f);
+        lockCamera = true;
     }
 
     public void Init()
@@ -87,8 +117,16 @@ public class vThirdPersonCamera : MonoBehaviour
     void FixedUpdate()
     {
         if (target == null || targetLookAt == null) return;
-
         CameraMovement();
+    }
+
+    private void Update()
+    {
+        //if (target == null || targetLookAt == null) return;
+
+        //CameraMovement();
+
+        
     }
 
     /// <summary>
@@ -143,6 +181,7 @@ public class vThirdPersonCamera : MonoBehaviour
             mouseX = currentTarget.root.localEulerAngles.y;
         }
     }
+
 
     /// <summary>
     /// Camera behaviour

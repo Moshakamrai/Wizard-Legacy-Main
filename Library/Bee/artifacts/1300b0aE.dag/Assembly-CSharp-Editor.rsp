@@ -351,6 +351,7 @@
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.0/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll"
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.0/Editor/VisualScripting.Core/EditorAssetResources/Unity.VisualScripting.TextureAssets.dll"
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.0/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp-Editor-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Autodesk.Fbx.Editor.ref.dll"

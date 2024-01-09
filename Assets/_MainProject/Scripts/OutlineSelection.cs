@@ -11,6 +11,11 @@ public class OutlineSelection : MonoBehaviour
     [SerializeField]
     private LevitateObjectTest levitateObjectTest;
 
+    [SerializeField]
+    private SectumSperaTest sectumSperaTest;
+
+
+
     void Update()
     {
         // Highlight
@@ -36,7 +41,7 @@ public class OutlineSelection : MonoBehaviour
                 {
                     Outline outline = highlight.gameObject.AddComponent<Outline>();
                     outline.enabled = true;
-                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
+                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.green;
                     highlight.gameObject.GetComponent<Outline>().OutlineWidth = 6.0f;
                 }
             }
@@ -59,11 +64,49 @@ public class OutlineSelection : MonoBehaviour
                 else
                 {
                     Outline outline = raycastHit.transform.gameObject.AddComponent<Outline>();
-                    outline.enabled = true;
-                    raycastHit.transform.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
+                    outline.enabled = false;
+                    raycastHit.transform.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
                     raycastHit.transform.gameObject.GetComponent<Outline>().OutlineWidth = 6.0f;
                 }
             }
+        }
+
+        if (GameManager.Instance.slowEffect)
+        {
+            // Check if the raycast hits an object with the tag "CollideObject"
+            if (Physics.Raycast(ray, out raycastHit) && raycastHit.collider.CompareTag("CollideObject"))
+            {
+                // Check if the object is not already outlined
+                if (!GameManager.Instance.outlinedObjects.Contains(raycastHit.transform))
+                {
+                    // Highlight the object with the "CollideObject" tag
+                    if (raycastHit.transform.gameObject.GetComponent<Outline>() != null)
+                    {
+                        raycastHit.transform.gameObject.GetComponent<Outline>().enabled = true;
+                    }
+                    else
+                    {
+                        Outline outline = raycastHit.transform.gameObject.AddComponent<Outline>();
+                        outline.enabled = true;
+                        raycastHit.transform.gameObject.GetComponent<Outline>().OutlineColor = Color.red;
+                        raycastHit.transform.gameObject.GetComponent<Outline>().OutlineWidth = 6.0f;
+
+                        // Add the outlined object's transform to the list
+                        GameManager.Instance.outlinedObjects.Add(raycastHit.transform);
+                        GameManager.Instance.outlinedObjectCount++;
+
+                        // Check if the count is 4
+                        if (GameManager.Instance.outlinedObjectCount == 4)
+                        {
+                            // Do something when 4 objects are outlined
+                            Debug.Log("outline should be off");
+                            GameManager.Instance.slowEffect = false;
+                            
+                        }
+                    }
+                }
+            }
+           
         }
 
         // Selection
