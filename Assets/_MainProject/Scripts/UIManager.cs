@@ -41,15 +41,15 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        // Measure frames per second
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
-        float fps = 1.0f / deltaTime;
+        //// Measure frames per second
+        //deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        //float fps = 1.0f / deltaTime;
 
-        // Update the FPS text
-        if (fpsText != null)
-        {
-            fpsText.text = "FPS: " + Mathf.Round(fps);
-        }
+        //// Update the FPS text
+        //if (fpsText != null)
+        //{
+        //    fpsText.text = "FPS: " + Mathf.Round(fps);
+        //}
     }
 
     // Function to activate a specific button and deactivate others
@@ -59,6 +59,14 @@ public class UIManager : MonoBehaviour
         {
             // Activate the provided button and deactivate others
             button.interactable = (button == activeButton);
+        }
+    }
+    public void DeactivateButton(Button activeButton)
+    {
+        foreach (Button button in buttons)
+        {
+            // Activate the provided button and deactivate others
+            button.interactable = (button != activeButton);
         }
     }
 }

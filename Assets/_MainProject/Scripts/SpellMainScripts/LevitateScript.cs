@@ -7,8 +7,6 @@ using Unity.Mathematics;
 public class LevitateScript : MonoBehaviour
 {
     [SerializeField]
-    private float levitationHeight = 3f;  // Set the desired levitation height
-    [SerializeField]
     private float levitationDuration = 1.5f;  // Set the duration for levitation
     [SerializeField]
     private float rotationAmount = 360f;  // Set the amount of rotation in degrees
@@ -39,7 +37,7 @@ public class LevitateScript : MonoBehaviour
     public void LevitateUpwards(GameObject target)
     {
         // Levitate upwards
-        transform.DOMoveY(levitationHeight, levitationDuration).SetEase(Ease.InOutQuad);
+        //transform.DOMoveY(levitationHeight, levitationDuration).SetEase(Ease.InOutQuad);
 
         // Rotate during levitation
         transform.DORotate(new Vector3(0f, rotationAmount, 0f), rotationDuration, RotateMode.FastBeyond360)
@@ -60,6 +58,7 @@ public class LevitateScript : MonoBehaviour
 
     public void FlyTowards(GameObject target) 
     {
+        transform.parent = null;
         attackMode = true;
         DOTween.Clear();
         ParticleManager.Instance.PlayParticle("TrailLevitate", gameObject.transform.position, transform.rotation, auraGameObject.transform);

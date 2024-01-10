@@ -82,7 +82,6 @@
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXSceneManager.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\SkeletonStateMachine.cs" />
     <Compile Include="Assets\Old Sea Port\EffectExamples\Shared\Scripts\GunShoot.cs" />
-    <Compile Include="Assets\_MainProject\Scripts\ShooterScripts\ThirdPersonShooterController.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vPickupItem.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\BombardoTest.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXMouseOrbit.cs" />
@@ -93,6 +92,7 @@
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\WalkTowardsNecro.cs" />
     <Compile Include="Assets\Epic Toon FX\Scripts\ETFXPitchRandomizer.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vComment.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\PetrificusTotalusTest.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\MainStateNPC.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\LeviateObjectTest.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXTarget.cs" />
@@ -113,6 +113,7 @@
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SpellManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonAnimator.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonController.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\ShieldSpell.cs" />
     <Compile Include="Assets\_MainProject\Scripts\OutlineSelection.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXButtonScript.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\NecroStateMachine.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
     <Compile Include="Assets\GUI PRO Kit - Casual Game\Scripts\PanelCasualGame.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\BuyFruits.cs" />
-    <Compile Include="Assets\_MainProject\Scripts\SlowMotionController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Epic Toon FX\Prefabs\Environment\Environment FX.txt" />
