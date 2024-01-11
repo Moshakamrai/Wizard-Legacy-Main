@@ -11,19 +11,19 @@ public class GameManager : MonoBehaviour
     private GameObject mainPlayer;
 
     [SerializeField]
-    private BombardoTest bombarbuTest;
+    private BombardoTest bombardoTest;
 
-    #region Vars
-    public float slowdownFactor; // Adjust the slowdown factor
-    public float slowdownDuration; // Adjust the duration of the slowdown
-    public float cameraSpeedMultiplier ; // Adjust the camera speed multiplier during slowdown
+    #region Variables
+    public float slowdownFactor = 0.1f; // Adjust the slowdown factor
+    public float slowdownDuration ; // Adjust the duration of the slowdown
+    public float cameraSpeedMultiplier = 0.5f; // Adjust the camera speed multiplier during slowdown
 
     private float originalTimeScale;
     public bool slowEffect;
 
-    public List<Transform> outlinedObjects = new List<Transform>();
-    public int outlinedObjectCount = 0;
+    public Transform outlinedObject; // Single target object
     #endregion
+
     // Ensure only one instance of the class exists
     public static GameManager Instance
     {
@@ -39,7 +39,9 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+
     vThirdPersonCamera cameraScript;
+
     void Awake()
     {
         // Ensure only one instance of the class exists
@@ -58,21 +60,22 @@ public class GameManager : MonoBehaviour
     {
         originalTimeScale = Time.timeScale;
         cameraScript = Camera.main.GetComponent<vThirdPersonCamera>();
+        slowdownDuration = 0.4f;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(SlowMotion());
-        }
-        //if (outlinedObjectCount == 4)
+        //if (Input.GetKeyDown(KeyCode.Space))
         //{
-        //    slowEffect = false;
+        //    slowEffect = true;
+        //    StartCoroutine(SlowMotion());
         //}
-
     }
-
+    public void FireBombardo()
+    {
+        slowEffect = true;
+        StartCoroutine(SlowMotion());
+    }
     public void SlowMotionStart()
     {
         StartCoroutine(SlowMotion());
@@ -80,89 +83,61 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SlowMotion()
     {
+ 
+        yield return new WaitForSeconds(slowdownDuration);
         Time.timeScale = slowdownFactor;
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        slowEffect = true;
-        // Disable camera movement slowdown
-       
+        Time.fixedDeltaTime = Time.timeScale * 0.01f;
         if (cameraScript != null)
         {
             cameraScript.SetCameraSpeedMultiplier(cameraSpeedMultiplier);
         }
-
-        //while (slowEffect)
-        //{
-            
-        //    //yield return new WaitForSeconds(slowdownDuration);
-        //    //slowEffect = false;
-        //}
-
-        yield return new WaitForSeconds(slowdownDuration);
         slowEffect = false;
-
-        if (!bombarbuTest.spellCasted)
+        if (!bombardoTest.spellCasted)
         {
-            bombarbuTest.BombardoCastSpell();
+            bombardoTest.BombardoCastSpell();
         }
+
         if (cameraScript != null)
         {
             cameraScript.ResetCameraSpeedMultiplier();
         }
+
+        yield return new WaitForSeconds(slowdownDuration);
+
         Time.timeScale = originalTimeScale;
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
-
+        Time.fixedDeltaTime = Time.timeScale * 0.01f;
     }
 
-    public void FocusOnObjects(GameObject cam,  float rotationSpeed, float focusDuration)
+    public void FocusOnObject(GameObject cam, float rotationSpeed, float focusDuration)
     {
-        
-        StartCoroutine(FocusCoroutine(cam, mainPlayer.transform, rotationSpeed, focusDuration));
+        StartCoroutine(FocusCoroutine(cam, mainPlayer.transform, rotationSpeed, focusDuration, outlinedObject));
     }
 
-    IEnumerator FocusCoroutine(GameObject cam, Transform mainPlayer, float rotationSpeed, float focusDuration)
+    public void FocusOnObject(GameObject cam, float rotationSpeed, float focusDuration, Transform targetObject)
     {
-        // Calculate the center point of the outlined objects
-        Vector3 centerPoint = CalculateCenterPoint();
+        StartCoroutine(FocusCoroutine(cam, mainPlayer.transform, rotationSpeed, focusDuration, targetObject));
+    }
 
-        // Get the initial rotation and position of the camera and mainPlayer
+    IEnumerator FocusCoroutine(GameObject cam, Transform mainPlayer, float rotationSpeed, float focusDuration, Transform targetObject)
+    {
         Quaternion initialCamRotation = cam.transform.rotation;
         Vector3 initialCamPosition = cam.transform.position;
-        Quaternion initialPlayerRotation = mainPlayer.rotation;
-
-        // Set the camera and mainPlayer to look at the center point smoothly
         float elapsedTime = 0f;
+        //float zoomFactor = 0.1f; // Adjust the zoom factor
+
         while (elapsedTime < focusDuration)
         {
-            // Interpolate camera rotation
-            cam.transform.rotation = Quaternion.Slerp(initialCamRotation, Quaternion.LookRotation(centerPoint - cam.transform.position), elapsedTime / focusDuration);
+            // Zoom in towards the targetObject
+            //float currentZoom = Mathf.Lerp(1f, zoomFactor, elapsedTime / focusDuration);
+            //cam.transform.position = Vector3.Lerp(initialCamPosition, targetObject.position, elapsedTime / focusDuration);
+            cam.transform.rotation = Quaternion.Slerp(initialCamRotation, Quaternion.LookRotation(targetObject.position - cam.transform.position), elapsedTime / focusDuration);
 
-            // Interpolate camera position
-            //cam.transform.position = Vector3.Lerp(initialCamPosition, centerPoint, elapsedTime / focusDuration);
-
-            // Interpolate player rotation
-            //mainPlayer.rotation = Quaternion.Slerp(initialPlayerRotation, Quaternion.LookRotation(centerPoint - mainPlayer.position), elapsedTime / focusDuration);
-            //mainPlayer.LookAt(centerPoint);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Ensure the camera and player end up exactly at the desired rotation and position
         cameraScript.lockCamera = false;
     }
 
-    Vector3 CalculateCenterPoint()
-    {
-        Vector3 centerPoint = Vector3.zero;
-
-        foreach (Transform target in outlinedObjects)
-        {
-            centerPoint += target.position;
-        }
-
-        // Calculate the average position to find the center
-        centerPoint /= outlinedObjects.Count;
-
-        return centerPoint;
-    }
 
 }

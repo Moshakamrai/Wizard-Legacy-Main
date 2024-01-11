@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,8 +7,12 @@ public class OutlineSelection : MonoBehaviour
     private RaycastHit raycastHit;
 
     [SerializeField] private LevitateObjectTest levitateObjectTest;
-    [SerializeField] private SectumSperaTest sectumSperaTest;
 
+    [SerializeField]
+    private Transform highlightedObject;
+
+    //[SerializeField]
+    //private GameObject camObject;
     void Update()
     {
         if (highlight != null)
@@ -25,7 +27,7 @@ public class OutlineSelection : MonoBehaviour
         {
             highlight = raycastHit.transform;
 
-            if (highlight.CompareTag("MoveAble") )
+            if (highlight.CompareTag("MoveAble"))
             {
                 ToggleOutline(highlight, true, Color.green);
             }
@@ -42,7 +44,8 @@ public class OutlineSelection : MonoBehaviour
 
         if (GameManager.Instance.slowEffect)
         {
-            HandleRaycastInteraction(ray, "CollideObject", Color.red, GameManager.Instance.outlinedObjects, 4);
+            HandleRaycastBombardo(ray, "CollideObject", Color.red);
+            
         }
     }
 
@@ -75,24 +78,18 @@ public class OutlineSelection : MonoBehaviour
         }
     }
 
-
-    private void HandleRaycastInteraction(Ray ray, string tag, Color outlineColor, List<Transform> outlinedObjects, int targetCount)
+    private void HandleRaycastBombardo(Ray ray, string tag, Color outlineColor)
     {
         if (Physics.Raycast(ray, out raycastHit) && raycastHit.collider.CompareTag(tag))
         {
-            if (!outlinedObjects.Contains(raycastHit.transform))
-            {
-                ToggleOutline(raycastHit.transform, true, outlineColor);
+            
+            GameManager.Instance.outlinedObject = raycastHit.transform;
+            ToggleOutline(GameManager.Instance.outlinedObject, true, outlineColor);
+            //GameManager.Instance.FocusOnObject(camObject, 1f, 1f);
 
-                outlinedObjects.Add(raycastHit.transform);
-                GameManager.Instance.outlinedObjectCount++;
 
-                if (GameManager.Instance.outlinedObjectCount == targetCount)
-                {
-                    Debug.Log("Outline should be turned off");
-                    GameManager.Instance.slowEffect = false;
-                }
-            }
+            Debug.Log("Outline should be turned on (firing Ray)");
+            GameManager.Instance.slowEffect = false;
         }
     }
 }

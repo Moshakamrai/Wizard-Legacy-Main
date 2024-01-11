@@ -5,58 +5,60 @@ using UnityEngine;
 
 public class BombardoTest : MonoBehaviour
 {
-    [SerializeField] Transform[] bombSpawnPoints;
+    [SerializeField] Transform bombSpawnPoints;
     [SerializeField] GameObject castPointPrefab;
 
+    [SerializeField] Transform target; // Single target instead of a list
     [SerializeField] int storedIndex;
-
     public bool spellCasted;
+
+    [SerializeField] float spellSpeed;
+
+
+    [SerializeField]
+    private SpellData spellDatas;
 
     void Update()
     {
-        if (GameManager.Instance.outlinedObjectCount == 4 )
+        if (GameManager.Instance.slowEffect)
         {
-            spellCasted = true;
             BombardoCastSpell();
-            //GameManager.Instance.outlinedObjectCount = 0;
         }
     }
+
     private void Start()
     {
         storedIndex = 0;
+        spellSpeed = spellDatas.spellSpeed;
     }
 
     public void BombardoCastSpell()
     {
-        GameManager.Instance.outlinedObjectCount = 0;
-        for (int i = storedIndex; i < GameManager.Instance.outlinedObjects.Count; i++)
-        {
-            
-            Transform bombSpawnPoint = GameManager.Instance.outlinedObjects[i];
-            Transform castPoint = Instantiate(castPointPrefab, bombSpawnPoint.position + new Vector3(0, 9f, -9f), Quaternion.identity).transform;
-
-            FlyTowards(bombSpawnPoint, castPoint);
-            storedIndex = i +1;
-        }
-        bombSpawnPoints = GameManager.Instance.outlinedObjects.ToArray();
+        GameManager.Instance.slowEffect = false;
+        target = GameManager.Instance.outlinedObject;
+        FlyTowards(target);
     }
 
-    public void FlyTowards(Transform target, Transform castPoint)
+    public void FlyTowards(Transform target)
     {
-        ParticleManager.Instance.PlayParticle("BombardoProjectile", castPoint.position, transform.rotation, castPoint);
+        
+            Transform castPoint = Instantiate(castPointPrefab, target.position + new Vector3(0, 18f, 0f), Quaternion.identity).transform;
 
-        float distance = Vector3.Distance(castPoint.position, target.position);
-        float flyDuration = distance / 10f; // Adjust the divisor to control the speed
+            ParticleManager.Instance.PlayParticle("BombardoProjectile", castPoint.position, transform.rotation, castPoint);
 
-        // Fly towards the target
-        castPoint.DOMove(target.position, flyDuration)
-            .SetEase(Ease.Linear)
-            .OnComplete(() =>
-            {
-                Debug.Log("Reached the target!");
-                ParticleManager.Instance.PlayParticle("BombardoProjectileExplosion", castPoint.position, transform.rotation, castPoint);
-                spellCasted = false;
-            });
+            float distance = Vector3.Distance(castPoint.position, target.position);
+            float flyDuration = distance / spellSpeed; // Adjust the divisor to control the speed
+
+            // Fly towards the target
+            castPoint.DOMove(target.position, flyDuration)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    Debug.Log("Reached the target!");
+                    ParticleManager.Instance.PlayParticle("BombardoProjectileExplosion", castPoint.position, transform.rotation, castPoint);
+                    spellCasted = false;
+                });
     }
-    
+
 }
+

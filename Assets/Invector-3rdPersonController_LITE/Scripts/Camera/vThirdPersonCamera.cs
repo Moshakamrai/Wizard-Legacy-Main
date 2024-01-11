@@ -24,6 +24,7 @@ public class vThirdPersonCamera : MonoBehaviour
 
     private float originalXMouseSensitivity;
     private float originalYMouseSensitivity;
+    private float distanceOri;
 
     #endregion
 
@@ -68,6 +69,7 @@ public class vThirdPersonCamera : MonoBehaviour
         // Initialize original sensitivity values
         originalXMouseSensitivity = xMouseSensitivity;
         originalYMouseSensitivity = yMouseSensitivity;
+        //distanceOri = defaultDistance;
     }
 
     public void SetCameraSpeedMultiplier(float multiplier)
@@ -81,6 +83,8 @@ public class vThirdPersonCamera : MonoBehaviour
         // For example, ensure xMouseSensitivity and yMouseSensitivity don't go below a certain value
         xMouseSensitivity = Mathf.Max(xMouseSensitivity, 1.0f);
         yMouseSensitivity = Mathf.Max(yMouseSensitivity, 1.0f);
+        //defaultDistance = 1f;
+        //distance = 1f;
     }
 
     public void ResetCameraSpeedMultiplier()
@@ -89,8 +93,9 @@ public class vThirdPersonCamera : MonoBehaviour
         xMouseSensitivity = originalXMouseSensitivity;
         yMouseSensitivity = originalYMouseSensitivity;
         Debug.Log("set Speed normal for cam");
-        GameManager.Instance.FocusOnObjects(gameObject, 1f, 1.5f);
+        GameManager.Instance.FocusOnObject(gameObject, 1f, 1f);
         lockCamera = true;
+        //distance = defaultDistance;
     }
 
     public void Init()

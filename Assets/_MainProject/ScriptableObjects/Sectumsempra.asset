@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f658f59f211654dbe115a158df4c21, type: 3}
   m_Name: Sectumsempra
   m_EditorClassIdentifier: 
-  spellCost: 30
+  spellCost: 10
   spellDamage: 25
-  spellSpeed: 5
+  spellSpeed: 40
   spellName: Sectumsempra
   spellUnlocked: 1
+  spellImage: {fileID: 0}

@@ -13,16 +13,53 @@ public class SectumSperaTest : MonoBehaviour
 
     [SerializeField]
     public bool castedSpell;
-    void Start()
-    {
 
+    [SerializeField] 
+    float spellSpeed;
+    [SerializeField] 
+    private SpellData spellDatas;
+
+    private static SectumSperaTest instance;
+
+    public static SectumSperaTest Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                // If no instance exists, create one
+                GameObject singletonObject = new GameObject("SectumSperaTest");
+                instance = singletonObject.AddComponent<SectumSperaTest>();
+            }
+
+            return instance;
+        }
     }
 
+    void Awake()
+    {
+        // Ensure only one instance of the class exists
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        spellSpeed = spellDatas.spellSpeed;
+    }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            castedSpell = true;
             // Use the center of the camera's viewport as the ray origin
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
@@ -34,7 +71,7 @@ public class SectumSperaTest : MonoBehaviour
             else
             {
                 // If no object is hit, cast the spell at a specific distance along the ray
-                float castDistance = 40f; // Adjust the distance as needed
+                float castDistance = 100f; // Adjust the distance as needed
                 Vector3 castPoint = ray.origin + ray.direction * castDistance;
 
                 // Create a dummy transform at the cast point
@@ -46,7 +83,35 @@ public class SectumSperaTest : MonoBehaviour
 
                 // Optionally, you may want to destroy the dummyTransform after use
                 dummyTransform.gameObject.SetActive(false);
+                castedSpell = true;
             }
+        }
+    }
+    public void FireSectrumSpera()
+    {
+        // Use the center of the camera's viewport as the ray origin
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
+        if (Physics.Raycast(ray, out hit))
+        {
+            CastSectumSepra(hit.collider.gameObject.transform);
+        }
+        else
+        {
+            // If no object is hit, cast the spell at a specific distance along the ray
+            float castDistance = 40f; // Adjust the distance as needed
+            Vector3 castPoint = ray.origin + ray.direction * castDistance;
+
+            // Create a dummy transform at the cast point
+            Transform dummyTransform = new GameObject("DummyTransform").transform;
+            dummyTransform.position = castPoint;
+
+            // Perform the spell casting at the specified position
+            CastSectumSepra(dummyTransform);
+
+            // Optionally, you may want to destroy the dummyTransform after use
+            dummyTransform.gameObject.SetActive(false);
         }
     }
 
@@ -54,10 +119,10 @@ public class SectumSperaTest : MonoBehaviour
     {
         GameObject spellCastObject = Instantiate(castObject, castPoint.position, Quaternion.identity);
         ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.transform.position + new Vector3(0f, 0f, 4f), transform.rotation, spellCastObject.transform);
-
+        
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        float flyDuration = distance / 40f; // Adjust the divisor to control the speed
-        float randomX = Random.Range(-2f, 2f);
+        float flyDuration = distance / spellSpeed; // Adjust the divisor to control the speed
+        float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(-0.5f, 0.8f);
         
         Vector3[] pathPoints = new Vector3[3];
@@ -71,17 +136,13 @@ public class SectumSperaTest : MonoBehaviour
             .OnComplete(() =>
             {
                 //LeviosaActivate();
-                spellCastObject.SetActive(false);
+                //spellCastObject.SetActive(false);
+                castedSpell = true;
+                //ParticleManager.Instance.PlayParticle("FirstProjectileExplosion", target.position, transform.rotation);
             });
     }
 
 
-
-    Vector3 CalculateMidpoint(Vector3 point1, Vector3 point2)
-    {
-        // Calculate a midpoint between two points
-        return (point1 + point2) / 2f;
-    }
 
 
 

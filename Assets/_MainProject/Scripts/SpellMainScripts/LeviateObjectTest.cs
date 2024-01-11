@@ -61,23 +61,43 @@ public class LevitateObjectTest : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+    //    if (Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        // Use the center of the camera's viewport as the ray origin
+    //        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+    //        RaycastHit hit;
+    //        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
+    //        if (Physics.Raycast(ray, out hit))
+    //        {
+    //            GameObject clickedObject = hit.collider.gameObject;
+                
+                
+    //            int objectIndex = GetObjectIndex(clickedObject);
+    //            if (objectIndex != -1)
+    //            {
+    //                // Perform actions for the clicked moveable object
+    //                Debug.Log("Clicked on a moveable object. Array Index: " + objectIndex);
+    //            }
+    //        }
+    //    }
+    }
+
+    public void FireLeviosa()
+    {
+        // Use the center of the camera's viewport as the ray origin
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
+        if (Physics.Raycast(ray, out hit))
         {
-            // Use the center of the camera's viewport as the ray origin
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            RaycastHit hit;
-            Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
-            if (Physics.Raycast(ray, out hit))
+            GameObject clickedObject = hit.collider.gameObject;
+
+
+            int objectIndex = GetObjectIndex(clickedObject);
+            if (objectIndex != -1)
             {
-                GameObject clickedObject = hit.collider.gameObject;
-                
-                
-                int objectIndex = GetObjectIndex(clickedObject);
-                if (objectIndex != -1)
-                {
-                    // Perform actions for the clicked moveable object
-                    Debug.Log("Clicked on a moveable object. Array Index: " + objectIndex);
-                }
+                // Perform actions for the clicked moveable object
+                Debug.Log("Clicked on a moveable object. Array Index: " + objectIndex);
             }
         }
     }
