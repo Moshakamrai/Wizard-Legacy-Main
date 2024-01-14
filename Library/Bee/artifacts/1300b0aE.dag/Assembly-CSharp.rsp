@@ -452,6 +452,7 @@
 "Assets/_MainProject/Scripts/OutlineSelection.cs"
 "Assets/_MainProject/Scripts/ParticleCollisionDetector.cs"
 "Assets/_MainProject/Scripts/ParticleManager.cs"
+"Assets/_MainProject/Scripts/ParticleSpeedTest.cs"
 "Assets/_MainProject/Scripts/ShooterScripts/CastSpellScript.cs"
 "Assets/_MainProject/Scripts/SpellMainScripts/BombardoTest.cs"
 "Assets/_MainProject/Scripts/SpellMainScripts/LeviateObjectTest.cs"

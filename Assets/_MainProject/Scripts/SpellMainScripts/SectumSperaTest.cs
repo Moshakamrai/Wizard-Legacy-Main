@@ -17,7 +17,7 @@ public class SectumSperaTest : MonoBehaviour
     [SerializeField] 
     float spellSpeed;
     [SerializeField] 
-    private SpellData spellDatas;
+    public SpellData spellDatas;
 
     private static SectumSperaTest instance;
 
@@ -66,9 +66,29 @@ public class SectumSperaTest : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
             if (Physics.Raycast(ray, out hit))
             {
-                CastSectumSepra(hit.collider.gameObject.transform);
-                Debug.Log("Got the target");
+                if (hit.collider.gameObject != null)
+                {
+                    CastSectumSepra(hit.collider.gameObject.transform);
+                    Debug.Log("Got the target");
+                }
+                else
+                {
+                    // If no object is hit, cast the spell at a specific distance along the ray
+                    float castDistance = 100f; // Adjust the distance as needed
+                    Vector3 castPoint = ray.origin + ray.direction * castDistance;
 
+                    // Create a dummy transform at the cast point
+                    Transform dummyTransform = new GameObject("DummyTransform").transform;
+                    dummyTransform.position = castPoint;
+
+                    // Perform the spell casting at the specified position
+                    CastSectumSepra(dummyTransform);
+
+                    // Optionally, you may want to destroy the dummyTransform after use
+                    dummyTransform.gameObject.SetActive(false);
+                    castedSpell = true;
+                    Debug.Log("creating dummy");
+                }
             }
             else
             {
@@ -88,6 +108,7 @@ public class SectumSperaTest : MonoBehaviour
                 castedSpell = true;
                 Debug.Log("creating dummy");
             }
+
         }
     }
     public void FireSectrumSpera()
@@ -118,15 +139,16 @@ public class SectumSperaTest : MonoBehaviour
         }
     }
 
-    public void CastSectumSepra(Transform target)
+    public void CastSectumSepra(Transform target1)
     {
+        Transform target = target1.gameObject.GetComponent<SkeletonStateMachine>().hitPoint.transform;
         GameObject spellCastObject = Instantiate(castObject, castPoint.position, Quaternion.identity);
-        ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.transform.position + new Vector3(0f, 0f, 4f), transform.rotation, spellCastObject.transform);
+        ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.transform.position , transform.rotation, spellCastObject.transform);
 
         float distance = Vector3.Distance(castPoint.position, target.transform.position);
         float flyDuration = distance / spellSpeed; // Adjust the divisor to control the speed
-        float randomX = Random.Range(-1f, 1f);
-        float randomY = Random.Range(-0.5f, 0.8f);
+        float randomX = Random.Range(0f, 1f);
+        //float randomY = Random.Range(0f, 1f);
 
         Vector3[] pathPoints;
 
@@ -137,8 +159,9 @@ public class SectumSperaTest : MonoBehaviour
             // Use curved movement with deviation
             pathPoints = new Vector3[3];
             pathPoints[0] = castPoint.transform.position;
-            pathPoints[1] = castPoint.transform.position + new Vector3(randomX, randomY, 0f); // Control point 1
+            pathPoints[1] = castPoint.transform.position + new Vector3(randomX, 0f, 0f); // Control point 1
             pathPoints[2] = target.transform.position;
+            Debug.Log("should deviate");
         }
         else
         {
@@ -146,6 +169,8 @@ public class SectumSperaTest : MonoBehaviour
             pathPoints = new Vector3[2];
             pathPoints[0] = castPoint.transform.position;
             pathPoints[1] = target.transform.position;
+            Debug.Log("should not deviate");
+
         }
 
         // Fly towards the target with curved movement or direct movement
@@ -153,9 +178,7 @@ public class SectumSperaTest : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                //spellCastObject.SetActive(false);
                 castedSpell = true;
-                //ParticleManager.Instance.PlayParticle("FirstProjectileExplosion", target.position, transform.rotation);
             });
     }
 

@@ -8,8 +8,8 @@ public class WalkTowardSK : SkeletonStates
     public override void EnterState(SkeletonStateMachine enemy1)
     {
         
-        //enemy1.resetSK = false;
-        Debug.Log("made it false");
+        enemy1.resetSK = false;
+       
         enemy1.animSK.SetTrigger("Walk");
        // Debug.Log("Back to walking");
         if (enemy1.navMeshAgent != null)
@@ -20,7 +20,7 @@ public class WalkTowardSK : SkeletonStates
         }
         else
         {
-            Debug.LogError("NavMeshAgent component not found.");
+            //Debug.LogError("NavMeshAgent component not found.");
         }
     }
     public override void UpdateState(SkeletonStateMachine enemy1)
@@ -30,9 +30,9 @@ public class WalkTowardSK : SkeletonStates
             enemy1.hitCounter = 0;
             enemy1.navMeshAgent.isStopped = true;
             enemy1.SwitchState(enemy1.getHurt);
-            enemy1.ApplyPushBack();
+            
         }
-        Debug.Log("in walking state");
+        //Debug.Log("in walking state");
         if (Vector3.Distance(enemy1.transform.position, enemy1.mainPlayer.transform.position) < enemy1.proximityThreshold)
         {
             enemy1.navMeshAgent.isStopped = true;

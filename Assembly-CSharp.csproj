@@ -70,6 +70,7 @@
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonMotor.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonInput.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\GetHurtNecro.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\ParticleSpeedTest.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\WalkToBuy.cs" />
     <Compile Include="Assets\_MainProject\Scripts\ShooterScripts\CastSpellScript.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\SkeletonStatesFolder\SkeletonStates.cs" />

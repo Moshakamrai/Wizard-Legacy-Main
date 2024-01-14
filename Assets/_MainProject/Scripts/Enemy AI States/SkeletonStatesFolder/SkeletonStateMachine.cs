@@ -25,12 +25,13 @@ public class SkeletonStateMachine : MonoBehaviour
     [SerializeField] internal Animator animSK;
     [SerializeField] internal GameObject mainPlayer;
     [SerializeField] internal NavMeshAgent navMeshAgent;
+    public GameObject hitPoint;
     #endregion
 
     private void Start()
     {
         enemyHealth = 100;
-        proximityThreshold = 3f;
+        proximityThreshold = 2f;
         currentState = walktoward;
         pushBackForce = 2f;
         currentState.EnterState(this);
@@ -45,16 +46,12 @@ public class SkeletonStateMachine : MonoBehaviour
     {
         currentState.UpdateState(this);
         //isWalkSKPlaying = IsAnimationStatePlaying("WalkSK");
+        if (enemyHealth < 0)
+        {
+            gameObject.SetActive(false);
+        }
         
 
-    }
-    internal bool IsAnimationStatePlaying(string stateName)
-    {
-        // Get the current state information from the Animator
-        AnimatorStateInfo stateInfo = animSK.GetCurrentAnimatorStateInfo(0);
-
-        // Check if the given state name matches the name of the currently playing state
-        return stateInfo.IsName(stateName);
     }
     public void SetDestination(Vector3 targetPosition)
     {
@@ -78,16 +75,48 @@ public class SkeletonStateMachine : MonoBehaviour
         {
             gameObject.GetComponent<Outline>().enabled = false;
         }
-        ParticleManager.Instance.PlayParticle("FirstProjectileExplosion", other.transform.position, transform.rotation, gameObject.transform);
-        other.SetActive(false);
+        ParticleManager.Instance.PlayParticle("FirstProjectileExplosion", hitPoint.transform.position, transform.rotation);
         SpellDamageControl(other);
+        other.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<LevitateScript>() != null)
+        {
+            if (collision.gameObject.GetComponent<LevitateScript>().attackMode)
+            {
+                SpellDamageControl(collision.gameObject);
+                hitCounter = 3;
+            }    
+        }   
     }
 
     public void SpellDamageControl(GameObject spellInfo)
     {
-        int damageStat = spellInfo.GetComponent<SpellDataRetrieve>().damage;
-        enemyHealth -= damageStat;
-        hitCounter += 1; 
+        if (spellInfo.GetComponent<SpellDataRetrieve>())
+        {
+            
+            int damageStat = spellInfo.GetComponent<SpellDataRetrieve>().damage;
+            enemyHealth -= damageStat;
+            if (damageStat == 1)
+            {
+                hitCounter = 3;
+                Debug.Log("got shielded");
+            }
+            else
+            {
+                hitCounter += 1;
+            }
+            
+        }
+    }
+
+    public void DamageState()
+    {
+
+        Debug.Log("should Damage player");
+
 
     }
     public void ApplyPushBack()
@@ -128,4 +157,6 @@ public class SkeletonStateMachine : MonoBehaviour
     {
         resetSK = true;
     }
+
+    
 }

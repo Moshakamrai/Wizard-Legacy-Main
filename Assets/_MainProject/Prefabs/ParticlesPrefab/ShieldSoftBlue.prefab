@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4809904008994882}
   - component: {fileID: 198536722342428144}
   - component: {fileID: 199717617902896242}
+  - component: {fileID: -173239255220703405}
   m_Layer: 0
   m_Name: ShieldSoftBlue
   m_TagString: ParticleObject
@@ -3551,7 +3552,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
     type: 0
     collisionMode: 0
@@ -3734,7 +3735,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 1
   TriggerModule:
@@ -4773,3 +4774,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-173239255220703405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135644536747142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d665668b1d02f8140a5a58ce21008632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellDatas: {fileID: 11400000, guid: 7862c22366b6ec94181ec03f20d5be71, type: 2}
+  cost: 0
+  damage: 0
+  speed: 0
+  nameSpell: 
+  unlocked: 0
+  image: {fileID: 0}

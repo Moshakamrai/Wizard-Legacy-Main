@@ -11,13 +11,21 @@ public class AttackSK : SkeletonStates
     }
     public override void UpdateState(SkeletonStateMachine enemy1)
     {
-        if (Vector3.Distance(enemy1.transform.position, enemy1.mainPlayer.transform.position) > enemy1.proximityThreshold)
+        //if (Vector3.Distance(enemy1.transform.position, enemy1.mainPlayer.transform.position) > enemy1.proximityThreshold)
+        //{
+        //    enemy1.SwitchState(enemy1.walktoward);
+        //}
+        if (enemy1.resetSK)
         {
-            
-            //enemy1.navMeshAgent.isStopped = false;
             enemy1.SwitchState(enemy1.walktoward);
         }
-        Debug.Log("in attacking state");
+        if (enemy1.hitCounter % 3 == 0 && enemy1.hitCounter != 0)
+        {
+            enemy1.hitCounter = 0;
+            enemy1.navMeshAgent.isStopped = true;
+            enemy1.SwitchState(enemy1.getHurt);
+            enemy1.ApplyPushBack();
+        }
     }
     public override void OnCollisionEnter(SkeletonStateMachine enemySK)
     {
