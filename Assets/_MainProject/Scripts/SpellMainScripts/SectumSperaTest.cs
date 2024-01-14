@@ -67,6 +67,8 @@ public class SectumSperaTest : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 CastSectumSepra(hit.collider.gameObject.transform);
+                Debug.Log("Got the target");
+
             }
             else
             {
@@ -84,6 +86,7 @@ public class SectumSperaTest : MonoBehaviour
                 // Optionally, you may want to destroy the dummyTransform after use
                 dummyTransform.gameObject.SetActive(false);
                 castedSpell = true;
+                Debug.Log("creating dummy");
             }
         }
     }
@@ -119,31 +122,41 @@ public class SectumSperaTest : MonoBehaviour
     {
         GameObject spellCastObject = Instantiate(castObject, castPoint.position, Quaternion.identity);
         ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.transform.position + new Vector3(0f, 0f, 4f), transform.rotation, spellCastObject.transform);
-        
-        float distance = Vector3.Distance(transform.position, target.transform.position);
+
+        float distance = Vector3.Distance(castPoint.position, target.transform.position);
         float flyDuration = distance / spellSpeed; // Adjust the divisor to control the speed
         float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(-0.5f, 0.8f);
-        
-        Vector3[] pathPoints = new Vector3[3];
-        pathPoints[0] = spellCastObject.transform.position;
-        pathPoints[1] = spellCastObject.transform.position + new Vector3(randomX, randomY, 0f); // Control point 1
-        pathPoints[2] = target.transform.position;
 
-        // Fly towards the target with curved movement
+        Vector3[] pathPoints;
+
+        float minDeviationDistance = 3f; // Adjust this value based on your requirements
+
+        if (distance > minDeviationDistance)
+        {
+            // Use curved movement with deviation
+            pathPoints = new Vector3[3];
+            pathPoints[0] = castPoint.transform.position;
+            pathPoints[1] = castPoint.transform.position + new Vector3(randomX, randomY, 0f); // Control point 1
+            pathPoints[2] = target.transform.position;
+        }
+        else
+        {
+            // Go directly towards the target without deviation
+            pathPoints = new Vector3[2];
+            pathPoints[0] = castPoint.transform.position;
+            pathPoints[1] = target.transform.position;
+        }
+
+        // Fly towards the target with curved movement or direct movement
         spellCastObject.transform.DOLocalPath(pathPoints, flyDuration, PathType.CatmullRom, PathMode.Full3D, 10, Color.red)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                //LeviosaActivate();
                 //spellCastObject.SetActive(false);
                 castedSpell = true;
                 //ParticleManager.Instance.PlayParticle("FirstProjectileExplosion", target.position, transform.rotation);
             });
     }
-
-
-
-
 
 }

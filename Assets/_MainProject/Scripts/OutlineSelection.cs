@@ -31,6 +31,10 @@ public class OutlineSelection : MonoBehaviour
             {
                 ToggleOutline(highlight, true, Color.green);
             }
+            else if (highlight.CompareTag("CollideObject"))
+            {
+                ToggleOutline(highlight, true, Color.red);
+            }
             else
             {
                 highlight = null;
@@ -45,7 +49,6 @@ public class OutlineSelection : MonoBehaviour
         if (GameManager.Instance.slowEffect)
         {
             HandleRaycastBombardo(ray, "CollideObject", Color.red);
-            
         }
     }
 
@@ -72,7 +75,7 @@ public class OutlineSelection : MonoBehaviour
             }
             else
             {
-                // Turn off outline if the raycast doesn't hit the object with the specified tag
+                // Turn off outline if the raycast doesn't hit any object with the specified tag
                 ToggleOutline(raycastHit.transform, false, Color.clear);
             }
         }
@@ -82,11 +85,9 @@ public class OutlineSelection : MonoBehaviour
     {
         if (Physics.Raycast(ray, out raycastHit) && raycastHit.collider.CompareTag(tag))
         {
-            
             GameManager.Instance.outlinedObject = raycastHit.transform;
             ToggleOutline(GameManager.Instance.outlinedObject, true, outlineColor);
             //GameManager.Instance.FocusOnObject(camObject, 1f, 1f);
-
 
             Debug.Log("Outline should be turned on (firing Ray)");
             GameManager.Instance.slowEffect = false;
