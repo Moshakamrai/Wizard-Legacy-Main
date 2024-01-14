@@ -123,6 +123,10 @@ public class vThirdPersonCamera : MonoBehaviour
     {
         if (target == null || targetLookAt == null) return;
         CameraMovement();
+        //if (!PlayerControls.Instance.checkPointReached)
+        //{
+        //    lockCamera = true;
+        //}
     }
 
     private void Update()
