@@ -91,12 +91,14 @@
     <Compile Include="Assets\Epic Toon FX\Scripts\ETFXLightFade.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SectumSperaTest.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\NecromancerStateFolder\WalkTowardsNecro.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\Level1\PlayerControls.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\SpellDataRetrieve.cs" />
     <Compile Include="Assets\Epic Toon FX\Scripts\ETFXPitchRandomizer.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vComment.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\PetrificusTotalusTest.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\MainStateNPC.cs" />
     <Compile Include="Assets\_MainProject\Scripts\SpellMainScripts\LeviateObjectTest.cs" />
+    <Compile Include="Assets\_MainProject\Scripts\Level1\Level1Scripts.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXTarget.cs" />
     <Compile Include="Assets\Epic Toon FX\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\_MainProject\Scripts\Enemy AI States\Old Enemy State\WalkToExit.cs" />

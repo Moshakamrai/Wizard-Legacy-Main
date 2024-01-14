@@ -449,6 +449,8 @@
 "Assets/_MainProject/Scripts/GameManager.cs"
 "Assets/_MainProject/Scripts/HealthSystem.cs"
 "Assets/_MainProject/Scripts/InputManager.cs"
+"Assets/_MainProject/Scripts/Level1/Level1Scripts.cs"
+"Assets/_MainProject/Scripts/Level1/PlayerControls.cs"
 "Assets/_MainProject/Scripts/OutlineSelection.cs"
 "Assets/_MainProject/Scripts/ParticleCollisionDetector.cs"
 "Assets/_MainProject/Scripts/ParticleManager.cs"
