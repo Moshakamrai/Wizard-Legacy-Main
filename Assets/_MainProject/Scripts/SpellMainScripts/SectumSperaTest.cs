@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SectumSperaTest : MonoBehaviour
 {
@@ -12,12 +13,13 @@ public class SectumSperaTest : MonoBehaviour
     private GameObject castObject;
 
     [SerializeField]
-    public bool castedSpell;
+    private bool castedSpell;
 
-    [SerializeField] 
-    float spellSpeed;
-    [SerializeField] 
-    public SpellData spellDatas;
+    [SerializeField]
+    private float spellSpeed;
+
+    [SerializeField]
+    private SpellData spellDatas;
 
     private static SectumSperaTest instance;
 
@@ -36,7 +38,7 @@ public class SectumSperaTest : MonoBehaviour
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         // Ensure only one instance of the class exists
         if (instance != null && instance != this)
@@ -54,87 +56,53 @@ public class SectumSperaTest : MonoBehaviour
     {
         spellSpeed = spellDatas.spellSpeed;
     }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             castedSpell = true;
-            // Use the center of the camera's viewport as the ray origin
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
-            Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
-            if (Physics.Raycast(ray, out hit))
+
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("CollideObject"))
             {
-                if (hit.collider.gameObject != null)
-                {
-                    CastSectumSepra(hit.collider.gameObject.transform);
-                    Debug.Log("Got the target");
-                }
-                else
-                {
-                    // If no object is hit, cast the spell at a specific distance along the ray
-                    float castDistance = 100f; // Adjust the distance as needed
-                    Vector3 castPoint = ray.origin + ray.direction * castDistance;
-
-                    // Create a dummy transform at the cast point
-                    Transform dummyTransform = new GameObject("DummyTransform").transform;
-                    dummyTransform.position = castPoint;
-
-                    // Perform the spell casting at the specified position
-                    CastSectumSepra(dummyTransform);
-
-                    // Optionally, you may want to destroy the dummyTransform after use
-                    dummyTransform.gameObject.SetActive(false);
-                    castedSpell = true;
-                    Debug.Log("creating dummy");
-                }
+                CastSectumSepra(hit.collider.gameObject.transform);
+                Debug.Log("Got the target");
             }
             else
             {
-                // If no object is hit, cast the spell at a specific distance along the ray
-                float castDistance = 100f; // Adjust the distance as needed
+                float castDistance = 40f;
                 Vector3 castPoint = ray.origin + ray.direction * castDistance;
-
-                // Create a dummy transform at the cast point
                 Transform dummyTransform = new GameObject("DummyTransform").transform;
                 dummyTransform.position = castPoint;
 
-                // Perform the spell casting at the specified position
-                CastSectumSepra(dummyTransform);
-
-                // Optionally, you may want to destroy the dummyTransform after use
-                dummyTransform.gameObject.SetActive(false);
+                CastSectumSepra2(dummyTransform);
                 castedSpell = true;
-                Debug.Log("creating dummy");
+                dummyTransform.gameObject.SetActive(false);
             }
-
         }
     }
+
     public void FireSectrumSpera()
     {
-        // Use the center of the camera's viewport as the ray origin
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
+
         if (Physics.Raycast(ray, out hit))
         {
             CastSectumSepra(hit.collider.gameObject.transform);
         }
         else
         {
-            // If no object is hit, cast the spell at a specific distance along the ray
-            float castDistance = 40f; // Adjust the distance as needed
+            float castDistance = 40f;
             Vector3 castPoint = ray.origin + ray.direction * castDistance;
-
-            // Create a dummy transform at the cast point
             Transform dummyTransform = new GameObject("DummyTransform").transform;
             dummyTransform.position = castPoint;
 
-            // Perform the spell casting at the specified position
             CastSectumSepra(dummyTransform);
 
-            // Optionally, you may want to destroy the dummyTransform after use
             dummyTransform.gameObject.SetActive(false);
         }
     }
@@ -143,37 +111,32 @@ public class SectumSperaTest : MonoBehaviour
     {
         Transform target = target1.gameObject.GetComponent<SkeletonStateMachine>().hitPoint.transform;
         GameObject spellCastObject = Instantiate(castObject, castPoint.position, Quaternion.identity);
-        ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.transform.position , transform.rotation, spellCastObject.transform);
+        ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.position, transform.rotation, spellCastObject.transform);
 
         float distance = Vector3.Distance(castPoint.position, target.transform.position);
-        float flyDuration = distance / spellSpeed; // Adjust the divisor to control the speed
+        float flyDuration = distance / spellSpeed;
         float randomX = Random.Range(0f, 1f);
-        //float randomY = Random.Range(0f, 1f);
 
         Vector3[] pathPoints;
 
-        float minDeviationDistance = 3f; // Adjust this value based on your requirements
+        float minDeviationDistance = 3f;
 
         if (distance > minDeviationDistance)
         {
-            // Use curved movement with deviation
             pathPoints = new Vector3[3];
             pathPoints[0] = castPoint.transform.position;
             pathPoints[1] = castPoint.transform.position + new Vector3(randomX, 0f, 0f); // Control point 1
             pathPoints[2] = target.transform.position;
-            Debug.Log("should deviate");
+            Debug.Log("Should deviate");
         }
         else
         {
-            // Go directly towards the target without deviation
             pathPoints = new Vector3[2];
             pathPoints[0] = castPoint.transform.position;
             pathPoints[1] = target.transform.position;
-            Debug.Log("should not deviate");
-
+            Debug.Log("Should not deviate");
         }
 
-        // Fly towards the target with curved movement or direct movement
         spellCastObject.transform.DOLocalPath(pathPoints, flyDuration, PathType.CatmullRom, PathMode.Full3D, 10, Color.red)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
@@ -181,5 +144,41 @@ public class SectumSperaTest : MonoBehaviour
                 castedSpell = true;
             });
     }
+    public void CastSectumSepra2(Transform target)
+    {
+        //Transform target = target1.gameObject.GetComponent<SkeletonStateMachine>().hitPoint.transform;
+        GameObject spellCastObject = Instantiate(castObject, castPoint.position, Quaternion.identity);
+        ParticleManager.Instance.PlayParticle("FirstProjectile", castPoint.position, transform.rotation, spellCastObject.transform);
 
+        float distance = Vector3.Distance(castPoint.position, target.transform.position);
+        float flyDuration = distance / spellSpeed;
+        float randomX = Random.Range(0f, 1f);
+
+        Vector3[] pathPoints;
+
+        float minDeviationDistance = 3f;
+
+        if (distance > minDeviationDistance)
+        {
+            pathPoints = new Vector3[3];
+            pathPoints[0] = castPoint.transform.position;
+            pathPoints[1] = castPoint.transform.position + new Vector3(randomX, 0f, 0f); // Control point 1
+            pathPoints[2] = target.transform.position;
+            Debug.Log("Should deviate");
+        }
+        else
+        {
+            pathPoints = new Vector3[2];
+            pathPoints[0] = castPoint.transform.position;
+            pathPoints[1] = target.transform.position;
+            Debug.Log("Should not deviate");
+        }
+
+        spellCastObject.transform.DOLocalPath(pathPoints, flyDuration, PathType.CatmullRom, PathMode.Full3D, 10, Color.red)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                castedSpell = true;
+            });
+    }
 }

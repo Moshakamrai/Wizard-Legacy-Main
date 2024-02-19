@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellCost: 20
   spellDamage: 51
-  spellSpeed: 20
+  spellSpeed: 5
   spellName: Leviosa
   spellUnlocked: 1
   spellImage: {fileID: 0}

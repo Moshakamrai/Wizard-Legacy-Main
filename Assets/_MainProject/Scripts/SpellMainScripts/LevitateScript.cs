@@ -50,7 +50,7 @@ public class LevitateScript : MonoBehaviour
             .SetEase(Ease.Linear);
 
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        float flyDuration = distance / spellSpeed;
+        float flyDuration = distance / 20f;
         transform.DOMove(target.transform.position, flyDuration)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
@@ -70,7 +70,7 @@ public class LevitateScript : MonoBehaviour
         ParticleManager.Instance.PlayParticle("TrailLevitate", gameObject.transform.position, transform.rotation, auraGameObject.transform);
 
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        float flyDuration = distance / spellSpeed; // Adjust the divisor to control the speed
+        float flyDuration = distance / 20f; // Adjust the divisor to control the speed
 
         float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(-0.5f, 0.8f);

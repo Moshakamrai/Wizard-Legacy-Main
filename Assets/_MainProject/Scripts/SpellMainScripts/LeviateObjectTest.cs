@@ -158,7 +158,7 @@ public class LevitateObjectTest : MonoBehaviour
         ParticleManager.Instance.PlayParticle("TrailLevitate", spellCastObject.transform.position, transform.rotation, spellCastObject.transform);
 
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        float flyDuration = distance / 20; // Adjust the divisor to control the speed
+        float flyDuration = distance / 100; // Adjust the divisor to control the speed
 
 
         // Fly towards the target

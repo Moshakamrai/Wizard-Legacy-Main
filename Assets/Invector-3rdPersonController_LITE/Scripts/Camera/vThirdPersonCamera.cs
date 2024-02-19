@@ -121,8 +121,8 @@ public class vThirdPersonCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (target == null || targetLookAt == null) return;
-        CameraMovement();
+        //if (target == null || targetLookAt == null) return;
+        //CameraMovement();
         //if (!PlayerControls.Instance.checkPointReached)
         //{
         //    lockCamera = true;
@@ -131,11 +131,11 @@ public class vThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
-        //if (target == null || targetLookAt == null) return;
+        if (target == null || targetLookAt == null) return;
 
-        //CameraMovement();
+        CameraMovement();
 
-        
+
     }
 
     /// <summary>
